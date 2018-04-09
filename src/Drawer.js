@@ -38,17 +38,23 @@ export default class Drawer extends Component {
     // Content extra style
     contentStyle: PropTypes.object,
     // Backdrop extra style
-    backdropStyle: PropTypes.object
+    backdropStyle: PropTypes.object,
+    // Header bar extra style
+    headerStyle: PropTypes.object,
+    // Header title show on top of the scroll view
+    headerTitle: PropTypes.string
   };
 
   // Set default prop values
   static defaultProps = {
     isOpen: false,
     header: "Messages",
+    headerTitle: "Title",
     headerHeight: 70,
     teaserHeight: 75,
     contentStyle: null,
-    backdropStyle: null
+    backdropStyle: null,
+    headerStyle: null
   };
 
   // Define state
@@ -143,7 +149,7 @@ export default class Drawer extends Component {
   }
 
   render() {
-    const { children, header } = this.props,
+    const { children, header, headerTitle } = this.props,
       // Interpolate position value into opacity value
       animatedOpacity = this._animatedOpacity.interpolate({
         inputRange: [this.config.position.end, this.config.position.start],
@@ -210,6 +216,10 @@ export default class Drawer extends Component {
           // Handle gestures
           {...this._panResponder.panHandlers}
         >
+          <View style={[styles.headerView, this.props.headerStyle]}>
+            <View style={styles.headerDragView} />
+            <Text style={styles.headerTxt}>{headerTitle}</Text>
+          </View>
           {/* Put all content in a scrollable container */}
           <ScrollView
             ref={scrollView => {
@@ -418,5 +428,28 @@ const styles = StyleSheet.create({
     fontFamily: "Avenir",
     fontWeight: "600",
     fontSize: 16
+  },
+  headerView: {
+    flexDirection: "column",
+    alignItems: "center",
+    height: 45,
+    justifyContent: "space-between",
+    padding: 10,
+    backgroundColor: "blue",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
+  },
+  headerDragView: {
+    width: 80,
+    height: 3,
+    backgroundColor: "rgba(255,255,255, 0.8)",
+    borderRadius: 2
+  },
+  headerTxt: {
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "Lato-Bold",
+    color: "#fff"
+    // paddingBottom: 13,
   }
 });
