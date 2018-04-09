@@ -268,7 +268,7 @@ export default class Drawer extends Component {
 
   // Called when gesture ended
   _handlePanResponderEnd = (evt, gestureState) => {
-    console.log(gestureState);
+    // console.log(gestureState);
     // Reset offset
     this._animatedPosition.flattenOffset();
     // Reset pulling state
@@ -396,8 +396,8 @@ const styles = StyleSheet.create({
   // Body
   content: {
     backgroundColor: "black",
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height
   },
   // Header
