@@ -12,11 +12,15 @@ import {
   View
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import ExtraDimensions from 'react-native-extra-dimensions-android';
+import ExtraDimensions from "react-native-extra-dimensions-android";
 
 // Get screen dimensions
-const { width } = Dimensions.get('window'); 
-const height = Platform.OS === 'ios' ? Dimensions.get('screen').height : Dimensions.get('screen').height - ExtraDimensions.get('SOFT_MENU_BAR_HEIGHT'); 
+const { width } = Dimensions.get("window");
+const height =
+  Platform.OS === "ios"
+    ? Dimensions.get("screen").height
+    : Dimensions.get("screen").height -
+      ExtraDimensions.get("SOFT_MENU_BAR_HEIGHT");
 
 export default class Drawer extends Component {
   // Define prop types
@@ -34,7 +38,7 @@ export default class Drawer extends Component {
     // Content extra style
     contentStyle: PropTypes.object,
     // Backdrop extra style
-    backdropStyle: PropTypes.object,
+    backdropStyle: PropTypes.object
   };
 
   // Set default prop values
@@ -44,7 +48,7 @@ export default class Drawer extends Component {
     headerHeight: 70,
     teaserHeight: 75,
     contentStyle: null,
-    backdropStyle: null,
+    backdropStyle: null
   };
 
   // Define state
@@ -80,7 +84,7 @@ export default class Drawer extends Component {
     // Window backdrop opacity
     opacity: {
       start: 0, // fully transparent when closed
-      end: 1 // not transparent once opened
+      end: 0 // not transparent once opened
     }
   };
 
@@ -165,7 +169,13 @@ export default class Drawer extends Component {
         {/* Use light status bar because we have dark background */}
         <StatusBar barStyle={"light-content"} />
         {/* Backdrop with animated opacity */}
-        <Animated.View style={[styles.backdrop, { opacity: animatedOpacity }, this.props.backdropStyle]}>
+        <Animated.View
+          style={[
+            styles.backdrop,
+            { opacity: animatedOpacity },
+            this.props.backdropStyle
+          ]}
+        >
           {/* Close window when tapped on header */}
           <TouchableWithoutFeedback onPress={this.close}>
             <View style={[styles.header, this.getHeaderStyle()]}>
@@ -195,7 +205,7 @@ export default class Drawer extends Component {
                 { translateX: 0 }
               ]
             },
-            this.props.contentStyle,
+            this.props.contentStyle
           ]}
           // Handle gestures
           {...this._panResponder.panHandlers}
@@ -386,6 +396,8 @@ const styles = StyleSheet.create({
   // Body
   content: {
     backgroundColor: "black",
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     height
   },
   // Header
