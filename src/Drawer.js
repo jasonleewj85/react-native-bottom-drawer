@@ -91,6 +91,17 @@ export default class Drawer extends Component {
     opacity: {
       start: 0, // fully transparent when closed
       end: 0 // not transparent once opened
+    },
+    // Header border radius
+    borderRadius: {
+      start: {
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
+      },
+      end: {
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0
+      }
     }
   };
 
@@ -216,7 +227,15 @@ export default class Drawer extends Component {
           // Handle gestures
           {...this._panResponder.panHandlers}
         >
-          <View style={[styles.headerView, this.props.headerStyle]}>
+          <View
+            style={[
+              styles.headerView,
+              this.props.headerStyle,
+              this.state.open
+                ? this.config.borderRadius.end
+                : this.config.borderRadius.start
+            ]}
+          >
             <View style={styles.headerDragView} />
             <Text style={styles.headerTxt}>{headerTitle}</Text>
           </View>
